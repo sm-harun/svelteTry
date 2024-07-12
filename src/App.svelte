@@ -40,7 +40,11 @@
     
     function addTask(newTask) {
         tasks = [...tasks, newTask];
-        console.log(tasks)
+    }
+
+    function removeTask(taskId) {
+        tasks.splice(taskId, 1);
+        tasks = [...tasks];
     }
 
     function changeState(state) {
@@ -53,7 +57,7 @@
     <h1 class='head'>TODO List</h1>
 
     <div class='content'>
-        <TaskContainer {tasks}/>
+        <TaskContainer {tasks} {removeTask}/>
         <Options {changeState} />
     </div>
 </div>
