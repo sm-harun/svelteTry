@@ -1,7 +1,9 @@
 <style>
     div {
-        flex: 4;
+        flex: 6;
         padding: 1rem;
+        padding-left: 3rem;
+        padding-right: 3rem;
 
         height: 100%;
     }

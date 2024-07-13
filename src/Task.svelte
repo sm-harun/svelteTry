@@ -17,21 +17,51 @@
     }
 
     .task-box:hover {
-        transform: translateX(15px);
+        transform: translateX(8px);
+        border: 1px solid red;
     }
 
     .rbg {
-        background-color: rgba(255, 0, 0, 0.8);
+        background-color: rgb(223, 225, 225);
     }
 
     .ybg {
-        background-color: rgba(255, 255, 0, 0.8);
-        color: black;
+        background-color: rgba(255, 0, 50, 0.8);
+    }
+
+    .description-container {
+        padding: 0;
+        margin: 0;
+        position: absolute;
+        bottom: 1.3rem;
+
+        height: 40%;
+        width: 90%;
+
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .description {
+        font-size: 0.8rem;
+    }
+
+    .time {
+        position: absolute;
+        top: 1rem;
+        right: 10rem;
+        
+        font-weight: 600;
+    }
+
+    .cr {
+        color: red;
     }
 
     .date {
         position: absolute;
-        bottom: 0;
+        top: 1rem;
+        right: 3rem;
     }
 
     #status {
@@ -41,6 +71,7 @@
         top: 0;
 
         scale: 2;
+        opacity: 0;
     }
 
     .delete-svg-container {
@@ -51,6 +82,7 @@
         bottom: 30px;
         position: absolute;
         border-radius: 1rem;
+        opacity: 0;
 
         transition: .2s;
     }
@@ -58,20 +90,38 @@
     .delete-svg-container:hover {
         transform: scale(0.9);
     }
+
+    .task-box:hover .delete-svg-container {
+        opacity: 1;
+    }
+
+    .task-box:hover #status {
+        opacity: 1;
+    }
 </style>
 
 <script>
+    import { fly } from 'svelte/transition'
+
     export let task;
     export let tasks;
     export let removeTask;
 
     let checkedState = false;
     let taskIndex = tasks.indexOf(task);
+    
 </script>
 
-<div class=' {checkedState? "ybg": "rbg"} task-box'>
-    <h3>{task.taskName}</h3>
-    <p class="date">{task.date}</p>
+<div class='{checkedState? "ybg": "rbg"} task-box' in:fly={{ y: 600, duration: 1000 }} out:fly={{ x: -100, duration: 1000 }}>
+    <h3 class="task-name">{task.taskName}</h3>
+
+    <div class="description-container">
+        <p class="description">{task.description}</p>
+    </div>
+
+    <div class="{checkedState? "time": "time cr"}">{task.time}</div>
+    <div class="date">{task.date}</div>
+
     <input 
         type='checkbox' 
         id='status' 

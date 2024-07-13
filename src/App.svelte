@@ -6,36 +6,18 @@
         display: flex;
         flex-direction: column;
     }
-
-    .head {
-        flex: 1;
-
-        padding: 10px;
-        width: 100vw;
-        text-shadow: 4px 4px purple;
-
-        display: block;
-    }
-
-    .content {
-        flex: 15;
-
-        width: 100vw;
-        
-        display: flex;
-    }
 </style>
 
 <script>
     import TaskContainer from "./TaskContainer.svelte";
-    import Options from "./Options.svelte";
     import Inputs from "./Inputs.svelte";
+    import Header from "./Header.svelte";
 
     let inputsState = false;
 
     $: tasks = [
-        { taskName: "Clean Room", date: "12/2/2022"},
-        { taskName: "Shor", date: "3/5/2023"},
+        { taskName: "Clean Room", description: "Have to finish before noon.", date: "12/05/2023", time: "12: 30"},
+        { taskName: "Shower", description: "After the person comes out.", date: "30/11/2013", time: "05:30"},
     ];
     
     function addTask(newTask) {
@@ -47,21 +29,18 @@
         tasks = [...tasks];
     }
 
-    function changeState(state) {
+    function changeAddMenuState(state) {
         inputsState =  state;
     }
 
 </script>
 
 <div class="bod">
-    <h1 class='head'>TODO List</h1>
-
-    <div class='content'>
-        <TaskContainer {tasks} {removeTask}/>
-        <Options {changeState} />
-    </div>
+    <Header { changeAddMenuState }/>
+    
+    <TaskContainer {tasks} {removeTask}/>
 </div>
 
 {#if inputsState}
-    <Inputs {addTask} {changeState}/>
+    <Inputs {addTask} {changeAddMenuState}/>
 {/if}
