@@ -11,13 +11,13 @@
 
 <script>
     import Task from "./Task.svelte";
+    import { tasks } from "../taskStore";
 
-    export let tasks;
-    export let removeTask;
+    console.log($tasks)
 </script>
 
 <div>
-    {#each tasks as task}
-        <Task {task} {tasks} {removeTask}/>
+    {#each $tasks as task, index}
+        <Task {task} {index}/>
     {/each}
 </div>

@@ -8,28 +8,19 @@
     }
 </style>
 
-<script>
-    import TaskContainer from "./TaskContainer.svelte";
-    import Inputs from "./Inputs.svelte";
-    import Header from "./Header.svelte";
+<script lang="ts">
+    import TaskContainer from "./components/TaskContainer.svelte";
+    import Inputs from "./components/Inputs.svelte";
+    import Header from "./components/Header.svelte";
 
     let inputsState = false;
 
-    $: tasks = [
+    $: tasksk = [
         { taskName: "Clean Room", description: "Have to finish before noon.", date: "12/05/2023", time: "12: 30"},
         { taskName: "Shower", description: "After the person comes out.", date: "30/11/2013", time: "05:30"},
     ];
     
-    function addTask(newTask) {
-        tasks = [...tasks, newTask];
-    }
-
-    function removeTask(taskId) {
-        tasks.splice(taskId, 1);
-        tasks = [...tasks];
-    }
-
-    function changeAddMenuState(state) {
+    function changeAddMenuState(state: boolean) {
         inputsState =  state;
     }
 
@@ -38,9 +29,9 @@
 <div class="bod">
     <Header { changeAddMenuState }/>
     
-    <TaskContainer {tasks} {removeTask}/>
+    <TaskContainer />
 </div>
 
 {#if inputsState}
-    <Inputs {addTask} {changeAddMenuState}/>
+    <Inputs { changeAddMenuState }/>
 {/if}
